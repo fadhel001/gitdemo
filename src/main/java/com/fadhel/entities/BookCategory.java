@@ -1,10 +1,12 @@
 package com.fadhel.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,10 +15,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "books_category")
-@Setter
-@Getter
-@ToString
-public class BookCategory {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+
+public class BookCategory implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +27,7 @@ public class BookCategory {
 
     private String categoryName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
-    private Set<Book> book;
-}
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "category")
+    private List<Book> book = new ArrayList<>();
+
+   }

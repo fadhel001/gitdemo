@@ -1,10 +1,12 @@
 package com.fadhel.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -13,10 +15,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "tbl_books")
-@Setter
-@Getter
-@ToString
-public class Book {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+
+public class Book implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,5 +49,4 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private BookCategory category;
-
 }
